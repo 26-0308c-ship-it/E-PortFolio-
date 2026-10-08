@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC3 E-Portfolio — Admin</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">IC3</div>
+    <span class="eyebrow">ADMINISTRATION</span>
+    <h1>Welcome Back</h1>
+    <p>Sign in to manage your e-portfolio.</p>
+    <form id="loginForm">
+      <label>Username<input id="username" required autocomplete="username" placeholder="Enter username"></label>
+      <label>Password<input id="password" type="password" required autocomplete="current-password" placeholder="Enter password"></label>
+      <p id="loginError" class="form-error"></p>
+      <button class="btn primary full" type="submit">Sign In</button>
+    </form>
+   
+    <!-- DEMO ONLY: This login is client-side and is not secure for production use. -->
+  </div>
+  
+</div>
+
+<div id="adminApp" class="admin-app hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">IC3 <span>Admin</span></div>
+    <nav>
+      <button class="side-link active" data-panel="dashboard">📊 Dashboard</button>
+      <button class="side-link" data-panel="profile">👤 Get to Know Me</button>
+      <button class="side-link" data-panel="activities">📝 Activities</button>
+      <button class="side-link" data-panel="fivecs">⭐ 5C's</button>
+      <button class="side-link" data-panel="achievements">🏆 Achievements</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="index.html" class="side-link">🌐 View Portfolio</a>
+      <button id="logoutBtn" class="side-link">↪ Logout</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button id="sidebarToggle" class="icon-btn">☰</button>
+      <div><b id="panelTitle">Dashboard</b><span>Manage your portfolio content</span></div>
+      <button id="adminTheme" class="icon-btn">🌙</button>
+    </header>
+
+    <div class="admin-content">
+      <section id="panel-dashboard" class="panel active-panel">
+        <div class="section-heading left"><span class="eyebrow">OVERVIEW</span><h1>Dashboard</h1><p>Manage your IC3 E-Portfolio from one place.</p></div>
+        <div class="stats-grid">
+          <div class="stat-card"><span>📝</span><b id="statActivities">0</b><small>Activities</small></div>
+          <div class="stat-card"><span>🏆</span><b id="statAchievements">0</b><small>Achievements</small></div>
+          <div class="stat-card"><span>⭐</span><b>5</b><small>5C's Sections</small></div>
+          <div class="stat-card"><span>👤</span><b>✓</b><small>Profile Ready</small></div>
+        </div>
+        <div class="admin-card">
+          <h3>Quick Start</h3>
+          <p>Use the sidebar to update your profile, add school activities, edit the 5C's, or record achievements. All changes are saved in your browser.</p>
+        </div>
+      </section>
+
+      <section id="panel-profile" class="panel">
+        <div class="section-heading left"><span class="eyebrow">PROFILE</span><h1>Get to Know Me</h1></div>
+        <form id="profileForm" class="admin-card form-grid">
+          <label>Full Name<input id="pName" required></label>
+          <label>Course / Year Level<input id="pCourse" required></label>
+          <label class="full-row">Introduction<textarea id="pIntro" rows="4"></textarea></label>
+          <label>Interests<input id="pInterests"></label>
+          <label>Goals<input id="pGoals"></label>
+          <label class="full-row">Personal Quote<input id="pQuote"></label>
+          <label class="full-row">Profile Picture<input id="pImage" type="file" accept="image/*"><img id="pPreview" class="upload-preview" alt="Preview"></label>
+          <div class="full-row form-actions"><button class="btn primary" type="submit">Save Profile</button></div>
+        </form>
+      </section>
+
+      <section id="panel-activities" class="panel">
+        <div class="section-heading left"><span class="eyebrow">CONTENT</span><h1>Activities</h1><p>Add and manage your school activities.</p></div>
+        <form id="activityForm" class="admin-card form-grid">
+          <input type="hidden" id="aId">
+          <label>Activity Title<input id="aTitle" required></label>
+          <label>Date<input id="aDate" type="date" required></label>
+          <label>Category<input id="aCategory" placeholder="e.g. Academic, Teamwork"></label>
+          <label>Images<input id="aImages" type="file" accept="image/*" multiple></label>
+          <label class="full-row">Description<textarea id="aDescription" rows="4"></textarea></label>
+          <label class="full-row">Reflection<textarea id="aReflection" rows="4"></textarea></label>
+          <div id="aImagePreview" class="image-preview-grid full-row"></div>
+          <div class="full-row form-actions"><button class="btn primary" type="submit" id="activitySave">Add Activity</button><button class="btn secondary" type="button" id="activityCancel">Cancel</button></div>
+        </form>
+        <div id="activityAdminList" class="admin-list"></div>
+      </section>
+
+      <section id="panel-fivecs" class="panel">
+        <div class="section-heading left"><span class="eyebrow">DEVELOPMENT</span><h1>5C's</h1><p>Edit each area of your personal development.</p></div>
+        <div id="fiveCAdminList"></div>
+      </section>
+
+      <section id="panel-achievements" class="panel">
+        <div class="section-heading left"><span class="eyebrow">MILESTONES</span><h1>Achievements</h1><p>Record your awards, recognitions, and milestones.</p></div>
+        <form id="achievementForm" class="admin-card form-grid">
+          <input type="hidden" id="achId">
+          <label>Achievement Title<input id="achTitle" required></label>
+          <label>Date / Year<input id="achDate" required placeholder="e.g. 2026"></label>
+          <label>Organization / School<input id="achOrg"></label>
+          <label>Certificate / Photo<input id="achImage" type="file" accept="image/*"></label>
+          <label class="full-row">Description<textarea id="achDescription" rows="4"></textarea></label>
+          <img id="achPreview" class="upload-preview full-row" alt="Preview">
+          <div class="full-row form-actions"><button class="btn primary" type="submit" id="achievementSave">Add Achievement</button><button class="btn secondary" type="button" id="achievementCancel">Cancel</button></div>
+        </form>
+        <div id="achievementAdminList" class="admin-list"></div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>
